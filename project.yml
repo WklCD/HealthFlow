@@ -46,3 +46,4 @@ targets:
     settings:
       base:
         PRODUCT_BUNDLE_IDENTIFIER: com.healthflow.app.tests
+        GENERATE_INFOPLIST_FILE: true

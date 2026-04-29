@@ -7,7 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3840D6802FD92B7E94FD126B /* AchievementBadge.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD5EE9B4283884DE9CDD3DE9 /* AchievementBadge.swift */; };
 		535B4BD67387CA6152C0E8DF /* HealthFlowApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F567D4026FCD6ED5014FBE3 /* HealthFlowApp.swift */; };
+		7376AF8C2C464FFECFB16C11 /* BadgeDefinition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05D6C00F643570CDC8C31089 /* BadgeDefinition.swift */; };
+		CAD4F84396A7AB5F93A18E39 /* BadgeDefinitionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01BD462166FCF15B320305B6 /* BadgeDefinitionTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -21,23 +24,36 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		01BD462166FCF15B320305B6 /* BadgeDefinitionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BadgeDefinitionTests.swift; sourceTree = "<group>"; };
 		04F9D9F9F666A48BC2CA9E26 /* HealthFlow.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = HealthFlow.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		05D6C00F643570CDC8C31089 /* BadgeDefinition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BadgeDefinition.swift; sourceTree = "<group>"; };
 		193E6D5039F39F7F1458A807 /* HealthFlowTests.xctest */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.cfbundle; path = HealthFlowTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		2F1FE172FD28BD2280EAD08B /* HealthFlow.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = HealthFlow.entitlements; sourceTree = "<group>"; };
 		4F567D4026FCD6ED5014FBE3 /* HealthFlowApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthFlowApp.swift; sourceTree = "<group>"; };
 		CD274B93F03B8CB0FE09BCD2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		CD5EE9B4283884DE9CDD3DE9 /* AchievementBadge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AchievementBadge.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXGroup section */
 		0C3F72A9C2978A2EEA61C122 /* HealthFlow */ = {
 			isa = PBXGroup;
 			children = (
+				86ED565A2A8ADE9728F845E7 /* Definition */,
+				28C97A5149CFE54D755DE9F4 /* Model */,
 				5DB74B4E3A859ADFF8197086 /* View */,
 				2F1FE172FD28BD2280EAD08B /* HealthFlow.entitlements */,
 				4F567D4026FCD6ED5014FBE3 /* HealthFlowApp.swift */,
 				CD274B93F03B8CB0FE09BCD2 /* Info.plist */,
 			);
 			path = HealthFlow;
+			sourceTree = "<group>";
+		};
+		28C97A5149CFE54D755DE9F4 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				CD5EE9B4283884DE9CDD3DE9 /* AchievementBadge.swift */,
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 		2E7C60DFD56EE4FF0A944250 /* Products */ = {
@@ -56,11 +72,28 @@
 			path = View;
 			sourceTree = "<group>";
 		};
+		5ED72D20ED9DBC78F48B51DB /* DefinitionTests */ = {
+			isa = PBXGroup;
+			children = (
+				01BD462166FCF15B320305B6 /* BadgeDefinitionTests.swift */,
+			);
+			path = DefinitionTests;
+			sourceTree = "<group>";
+		};
 		60648AB1CD26413C9871CA2E /* HealthFlowTests */ = {
 			isa = PBXGroup;
 			children = (
+				5ED72D20ED9DBC78F48B51DB /* DefinitionTests */,
 			);
 			path = HealthFlowTests;
+			sourceTree = "<group>";
+		};
+		86ED565A2A8ADE9728F845E7 /* Definition */ = {
+			isa = PBXGroup;
+			children = (
+				05D6C00F643570CDC8C31089 /* BadgeDefinition.swift */,
+			);
+			path = Definition;
 			sourceTree = "<group>";
 		};
 		C11E4A65C5A979309293461E = {
@@ -146,6 +179,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CAD4F84396A7AB5F93A18E39 /* BadgeDefinitionTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -153,6 +187,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3840D6802FD92B7E94FD126B /* AchievementBadge.swift in Sources */,
+				7376AF8C2C464FFECFB16C11 /* BadgeDefinition.swift in Sources */,
 				535B4BD67387CA6152C0E8DF /* HealthFlowApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -335,6 +371,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				GENERATE_INFOPLIST_FILE = YES;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -351,6 +388,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				GENERATE_INFOPLIST_FILE = YES;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
