@@ -21,10 +21,9 @@ struct HealthFlowApp: App {
                 FavoriteFood.self,
                 IgnoredAlert.self,
             ])
-            let modelConfiguration = ModelConfiguration(schema: schema, isStoredInMemoryOnly: false)
+            let storeURL = URL.applicationSupportDirectory.appendingPathComponent("HealthFlow.sqlite")
+            let modelConfiguration = ModelConfiguration(schema: schema, url: storeURL)
             container = try ModelContainer(for: schema, configurations: [modelConfiguration])
-
-            ensureUserProfileExists()
         } catch {
             fatalError("无法初始化 ModelContainer: \(error)")
         }
@@ -33,11 +32,15 @@ struct HealthFlowApp: App {
     var body: some Scene {
         WindowGroup {
             MainTabView()
+                .task {
+                    await ensureUserProfileExists()
+                }
         }
         .modelContainer(container)
     }
 
-    private func ensureUserProfileExists() {
+    @MainActor
+    private func ensureUserProfileExists() async {
         let context = container.mainContext
         let descriptor = FetchDescriptor<UserProfile>()
         do {

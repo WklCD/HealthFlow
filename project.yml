@@ -1,6 +1,6 @@
 name: HealthFlow
 options:
-  bundleIdPrefix: com.healthflow
+  bundleIdPrefix: com.linchengda
   deploymentTarget:
     iOS: "17.0"
   xcodeVersion: "16.0"
@@ -32,7 +32,7 @@ targets:
     settings:
       base:
         INFOPLIST_FILE: HealthFlow/Info.plist
-        PRODUCT_BUNDLE_IDENTIFIER: com.healthflow.app
+        PRODUCT_BUNDLE_IDENTIFIER: com.linchengda.HealthFlow
         INFOPLIST_KEY_UIApplicationSceneManifest_Generation: true
         INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad: "UIInterfaceOrientationPortrait"
         INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone: "UIInterfaceOrientationPortrait"
@@ -45,5 +45,5 @@ targets:
       - target: HealthFlow
     settings:
       base:
-        PRODUCT_BUNDLE_IDENTIFIER: com.healthflow.app.tests
+        PRODUCT_BUNDLE_IDENTIFIER: com.linchengda.HealthFlow.tests
         GENERATE_INFOPLIST_FILE: true
