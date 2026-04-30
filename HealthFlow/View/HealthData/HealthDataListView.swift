@@ -4,6 +4,7 @@ import SwiftData
 struct HealthDataListView: View {
     @Environment(\.modelContext) private var modelContext
     @State private var viewModel: HealthDataViewModel?
+    @State private var hasRequestedAuth = false
 
     var body: some View {
         NavigationStack {
@@ -77,9 +78,15 @@ struct HealthDataListView: View {
         }
         .tabItem { Label("健康数据", systemImage: "heart.text.clipboard.fill") }
         .task {
-            let vm = HealthDataViewModel(modelContext: modelContext, healthKit: HealthKitManager.shared)
-            vm.loadAllData()
-            viewModel = vm
+            if viewModel == nil {
+                let vm = HealthDataViewModel(modelContext: modelContext, healthKit: HealthKitManager.shared)
+                vm.loadAllData()
+                viewModel = vm
+            }
+        }
+        .task(id: hasRequestedAuth) {
+            guard !hasRequestedAuth, let vm = viewModel else { return }
+            hasRequestedAuth = true
             await vm.requestAuthorizationAndSync()
         }
     }

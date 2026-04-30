@@ -13,9 +13,11 @@ struct FoodDefinition: Codable, Identifiable {
 }
 
 final class FoodDatabaseService {
+    static let shared = FoodDatabaseService()
+
     private var foods: [FoodDefinition] = []
 
-    init() { loadFoods() }
+    private init() { loadFoods() }
 
     private func loadFoods() {
         guard let url = Bundle.main.url(forResource: "FoodDatabase", withExtension: "json"),

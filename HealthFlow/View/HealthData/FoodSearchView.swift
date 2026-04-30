@@ -1,7 +1,7 @@
 import SwiftUI
 
 struct FoodSearchView: View {
-    let foodDatabase = FoodDatabaseService()
+    let foodDatabase = FoodDatabaseService.shared
     let onSelect: (FoodDefinition) -> Void
 
     @State private var searchText = ""

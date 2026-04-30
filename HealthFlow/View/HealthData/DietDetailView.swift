@@ -4,7 +4,6 @@ import SwiftData
 struct DietDetailView: View {
     let vm: HealthDataViewModel
     @State private var showingAddSheet = false
-    @State private var selectedMealType: MealType = .breakfast
 
     private var groupedRecords: [(MealType, [DietRecord])] {
         let grouped = Dictionary(grouping: vm.dietRecords) { MealType(rawValue: $0.mealType) ?? .breakfast }
@@ -60,22 +59,13 @@ struct DietDetailView: View {
         .navigationTitle("饮食")
         .toolbar {
             ToolbarItem(placement: .navigationBarTrailing) {
-                Menu {
-                    ForEach(MealType.allCases, id: \.self) { type in
-                        Button(action: {
-                            selectedMealType = type
-                            showingAddSheet = true
-                        }) {
-                            Label(type.displayName, systemImage: type.iconName)
-                        }
-                    }
-                } label: {
+                Button(action: { showingAddSheet = true }) {
                     Image(systemName: "plus")
                 }
             }
         }
         .sheet(isPresented: $showingAddSheet) {
-            AddDietSheet(vm: vm, mealType: selectedMealType)
+            AddDietSheet(vm: vm)
         }
     }
 }
@@ -114,7 +104,7 @@ struct DietRecordDetail: View {
 
 struct AddDietSheet: View {
     let vm: HealthDataViewModel
-    let mealType: MealType
+    @State private var selectedMealType: MealType = .breakfast
     @Environment(\.dismiss) private var dismiss
     @State private var showingFoodSearch = false
     @State private var selectedFoods: [(food: FoodDefinition, amount: Double)] = []
@@ -125,8 +115,12 @@ struct AddDietSheet: View {
         NavigationStack {
             List {
                 Section("餐次") {
-                    Text(mealType.displayName)
-                        .font(.headline)
+                    Picker("餐次", selection: $selectedMealType) {
+                        ForEach(MealType.allCases, id: \.self) { type in
+                            Text(type.displayName).tag(type)
+                        }
+                    }
+                    .pickerStyle(.segmented)
                 }
 
                 Section("食物") {
@@ -166,7 +160,7 @@ struct AddDietSheet: View {
                     DatePicker("记录时间", selection: $timestamp)
                 }
             }
-            .navigationTitle("添加\(mealType.displayName)")
+            .navigationTitle("添加\(selectedMealType.displayName)")
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .cancellationAction) {
@@ -191,7 +185,7 @@ struct AddDietSheet: View {
 
     private func saveDietRecord() {
         let record = DietRecord()
-        record.mealType = mealType.rawValue
+        record.mealType = selectedMealType.rawValue
         record.timestamp = timestamp
         record.source = "manual"
 
