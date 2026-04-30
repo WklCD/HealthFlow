@@ -29,6 +29,8 @@ targets:
           - UIInterfaceOrientationPortrait
     entitlements:
       path: HealthFlow/HealthFlow.entitlements
+      properties:
+        com.apple.developer.healthkit: true
     settings:
       base:
         INFOPLIST_FILE: HealthFlow/Info.plist
