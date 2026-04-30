@@ -38,6 +38,7 @@
 		B607D81F5AE9A7B28F03B75E /* PhysiologicalMetricTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 983324EBA4E0ADA0C0026B66 /* PhysiologicalMetricTests.swift */; };
 		B902E65E126526515192C3C5 /* ExerciseType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30BA2C9172D4836FC71AF40D /* ExerciseType.swift */; };
 		B95A414A35D00BA65DB040B0 /* DateFormatter+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9460DF9B942EB9FD6EB2126A /* DateFormatter+Extensions.swift */; };
+		C15814CA41276471EEF97226 /* HealthKitProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAEA40F236132AF02704CED9 /* HealthKitProtocol.swift */; };
 		C3163A46898A4997EDC15F7F /* IgnoredAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 472B5E5793D0C40D2BD0C751 /* IgnoredAlert.swift */; };
 		C482E67E57E4459DE91AED32 /* PersonalInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80E806E89150650CC183C953 /* PersonalInfoView.swift */; };
 		CAD4F84396A7AB5F93A18E39 /* BadgeDefinitionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01BD462166FCF15B320305B6 /* BadgeDefinitionTests.swift */; };
@@ -66,7 +67,7 @@
 /* Begin PBXFileReference section */
 		01BD462166FCF15B320305B6 /* BadgeDefinitionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BadgeDefinitionTests.swift; sourceTree = "<group>"; };
 		04B710DF33D701807A669D9E /* FavoriteFood.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteFood.swift; sourceTree = "<group>"; };
-		04F9D9F9F666A48BC2CA9E26 /* HealthFlow.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HealthFlow.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		04F9D9F9F666A48BC2CA9E26 /* HealthFlow.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = HealthFlow.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		05D6C00F643570CDC8C31089 /* BadgeDefinition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BadgeDefinition.swift; sourceTree = "<group>"; };
 		0F982B0C8452B90299F98E5B /* WorkoutRecordTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutRecordTests.swift; sourceTree = "<group>"; };
 		138C4F49D86D9DE7DA8A6D47 /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
@@ -103,6 +104,7 @@
 		983324EBA4E0ADA0C0026B66 /* PhysiologicalMetricTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhysiologicalMetricTests.swift; sourceTree = "<group>"; };
 		9AB15BAA89F799FA1F987FC7 /* MealType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MealType.swift; sourceTree = "<group>"; };
 		A06197B47BFAF316E90DE999 /* SleepRecord.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SleepRecord.swift; sourceTree = "<group>"; };
+		CAEA40F236132AF02704CED9 /* HealthKitProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthKitProtocol.swift; sourceTree = "<group>"; };
 		CD274B93F03B8CB0FE09BCD2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		CD5EE9B4283884DE9CDD3DE9 /* AchievementBadge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AchievementBadge.swift; sourceTree = "<group>"; };
 		DA0165D621B9497FAE4FF96A /* MedicationRecord.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MedicationRecord.swift; sourceTree = "<group>"; };
@@ -128,6 +130,7 @@
 			children = (
 				86ED565A2A8ADE9728F845E7 /* Definition */,
 				28C97A5149CFE54D755DE9F4 /* Model */,
+				40C80E04FB26648366DA298E /* Service */,
 				6032498D1C3FBB36CF3A92DD /* Utility */,
 				5DB74B4E3A859ADFF8197086 /* View */,
 				775F5F62CA8224FCC9B38684 /* ViewModel */,
@@ -181,6 +184,14 @@
 				8CAAD24FCA852923564FEEBC /* DashboardView.swift */,
 			);
 			path = Dashboard;
+			sourceTree = "<group>";
+		};
+		40C80E04FB26648366DA298E /* Service */ = {
+			isa = PBXGroup;
+			children = (
+				CAEA40F236132AF02704CED9 /* HealthKitProtocol.swift */,
+			);
+			path = Service;
 			sourceTree = "<group>";
 		};
 		5DB74B4E3A859ADFF8197086 /* View */ = {
@@ -343,6 +354,8 @@
 			attributes = {
 				BuildIndependentTargetsInParallel = YES;
 				LastUpgradeCheck = 1600;
+				TargetAttributes = {
+				};
 			};
 			buildConfigurationList = DD9ABA4E1DC485E42EE887FC /* Build configuration list for PBXProject "HealthFlow" */;
 			developmentRegion = en;
@@ -405,6 +418,7 @@
 				93C959F91FE642E369E04DB7 /* FoodItem.swift in Sources */,
 				5655F56C0F3EE71B7F41D1D9 /* HealthDataListView.swift in Sources */,
 				535B4BD67387CA6152C0E8DF /* HealthFlowApp.swift in Sources */,
+				C15814CA41276471EEF97226 /* HealthKitProtocol.swift in Sources */,
 				C3163A46898A4997EDC15F7F /* IgnoredAlert.swift in Sources */,
 				F4B10FAC40C27A08EFD52FF3 /* MainTabView.swift in Sources */,
 				897FB5637E2EC8228228B3FF /* MealType.swift in Sources */,
@@ -440,7 +454,6 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = HealthFlow/HealthFlow.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				DEVELOPMENT_TEAM = 62V8XDKU6L;
 				INFOPLIST_FILE = HealthFlow/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = UIInterfaceOrientationPortrait;
@@ -461,7 +474,6 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = HealthFlow/HealthFlow.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				DEVELOPMENT_TEAM = 62V8XDKU6L;
 				INFOPLIST_FILE = HealthFlow/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = UIInterfaceOrientationPortrait;
