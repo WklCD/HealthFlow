@@ -87,7 +87,7 @@ struct PersonalInfoView: View {
                 }
             }
         }
-        .onAppear {
+        .task {
             loadProfileData()
         }
     }

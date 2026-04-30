@@ -41,7 +41,7 @@ struct ProfileView: View {
         .tabItem {
             Label("我的", systemImage: "person.circle.fill")
         }
-        .onAppear {
+        .task {
             let vm = ProfileViewModel(modelContext: modelContext)
             vm.loadProfile()
             viewModel = vm

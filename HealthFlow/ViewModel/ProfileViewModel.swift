@@ -3,6 +3,7 @@ import SwiftUI
 import SwiftData
 
 @Observable
+@MainActor
 final class ProfileViewModel {
     var profile: UserProfile?
     private let modelContext: ModelContext
