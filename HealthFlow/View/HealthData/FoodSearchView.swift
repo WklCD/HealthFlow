@@ -6,6 +6,7 @@ struct FoodSearchView: View {
 
     @State private var searchText = ""
     @State private var selectedCategory: FoodCategory?
+    @Environment(\.dismiss) private var dismiss
 
     private enum FoodCategory: String, CaseIterable {
         case protein = "protein"
@@ -43,6 +44,21 @@ struct FoodSearchView: View {
     var body: some View {
         NavigationStack {
             List {
+                Section {
+                    HStack {
+                        Image(systemName: "magnifyingglass")
+                            .foregroundStyle(.secondary)
+                        TextField("搜索食物", text: $searchText)
+                            .textFieldStyle(.plain)
+                        if !searchText.isEmpty {
+                            Button(action: { searchText = "" }) {
+                                Image(systemName: "xmark.circle.fill")
+                                    .foregroundStyle(.secondary)
+                            }
+                        }
+                    }
+                }
+
                 Section("分类") {
                     ScrollView(.horizontal, showsIndicators: false) {
                         HStack(spacing: 8) {
@@ -92,7 +108,11 @@ struct FoodSearchView: View {
             }
             .navigationTitle("食物搜索")
             .navigationBarTitleDisplayMode(.inline)
-            .searchable(text: $searchText, prompt: "搜索食物")
+            .toolbar {
+                ToolbarItem(placement: .cancellationAction) {
+                    Button("取消") { dismiss() }
+                }
+            }
         }
     }
 }
