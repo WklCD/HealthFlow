@@ -34,6 +34,7 @@ struct HealthFlowApp: App {
             MainTabView()
                 .task {
                     await ensureUserProfileExists()
+                    await requestHealthKitAuthorization()
                 }
         }
         .modelContainer(container)
@@ -52,6 +53,19 @@ struct HealthFlowApp: App {
             }
         } catch {
             print("检查 UserProfile 时出错: \(error)")
+        }
+    }
+
+    @MainActor
+    private func requestHealthKitAuthorization() async {
+        do {
+            let authorized = try await HealthKitManager.shared.requestAuthorization()
+            if authorized {
+                let engine = SyncEngine(modelContext: container.mainContext)
+                await engine.syncAll(healthKit: HealthKitManager.shared)
+            }
+        } catch {
+            print("HealthKit 授权失败: \(error)")
         }
     }
 }
