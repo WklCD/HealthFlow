@@ -80,7 +80,7 @@ struct HealthDataListView: View {
             let vm = HealthDataViewModel(modelContext: modelContext, healthKit: HealthKitManager.shared)
             vm.loadAllData()
             viewModel = vm
-            await vm.syncAllFromHealthKit()
+            await vm.requestAuthorizationAndSync()
         }
     }
 }

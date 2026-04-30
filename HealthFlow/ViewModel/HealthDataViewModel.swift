@@ -11,6 +11,8 @@ final class HealthDataViewModel {
     var dietRecords: [DietRecord] = []
     var metrics: [PhysiologicalMetric] = []
     var medications: [MedicationRecord] = []
+    var isHealthKitAuthorized = false
+    var isSyncing = false
 
     private let modelContext: ModelContext
     private let healthKit: HealthKitProtocol
@@ -93,6 +95,21 @@ final class HealthDataViewModel {
         medication.takenAt = Date()
         try? modelContext.save()
         loadAllData()
+    }
+
+    func requestAuthorizationAndSync() async {
+        isSyncing = true
+        do {
+            let authorized = try await healthKit.requestAuthorization()
+            isHealthKitAuthorized = authorized
+            if authorized {
+                await syncAllFromHealthKit()
+            }
+        } catch {
+            print("HealthKit 授权失败: \(error)")
+            isHealthKitAuthorized = false
+        }
+        isSyncing = false
     }
 
     func syncDailyActivity() async {
