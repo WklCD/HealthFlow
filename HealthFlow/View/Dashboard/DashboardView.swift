@@ -22,7 +22,7 @@ struct DashboardView: View {
                     LazyVGrid(columns: [.init(.flexible()), .init(.flexible())], spacing: 12) {
                         StatCard(title: "运动", value: "\(viewModel?.todaySteps ?? 0)", unit: "步",
                                  iconName: "figure.walk", color: .orange)
-                        StatCard(title: "睡眠", value: String(format: "%.1f", viewModel?.sleepHours ?? 0), unit: "h",
+                        StatCard(title: "睡眠", value: String(format: "%.1f", viewModel?.sleepHours ?? 0.0), unit: "h",
                                  iconName: "moon.zzz.fill", color: .indigo)
                         StatCard(title: "饮食", value: "\(Int(viewModel?.dietCalories ?? 0))", unit: "千卡",
                                  iconName: "fork.knife", color: .green)
