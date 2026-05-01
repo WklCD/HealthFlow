@@ -19,7 +19,7 @@ struct ProfileView: View {
                 }
 
                 Section {
-                    NavigationLink(destination: EmptyView()) {
+                    NavigationLink(destination: HealthReportView()) {
                         Label("健康报告", systemImage: "doc.text.fill")
                     }
                     NavigationLink(destination: EmptyView()) {
