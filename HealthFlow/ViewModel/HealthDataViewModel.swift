@@ -29,6 +29,37 @@ final class HealthDataViewModel {
         dietRecords = (try? modelContext.fetch(FetchDescriptor<DietRecord>())) ?? []
         metrics = (try? modelContext.fetch(FetchDescriptor<PhysiologicalMetric>())) ?? []
         medications = (try? modelContext.fetch(FetchDescriptor<MedicationRecord>())) ?? []
+        migrateLegacyData()
+    }
+
+    private func migrateLegacyData() {
+        var needsSave = false
+
+        for metric in metrics {
+            if metric.metricType == "bloodOxygen" && metric.value <= 1.0 && metric.value > 0 {
+                metric.value *= 100.0
+                needsSave = true
+            }
+        }
+
+        for record in sleepRecords {
+            if record.sleepStage.isEmpty || record.sleepStage == "" {
+                if let deepSleep = record.deepSleep, deepSleep > 0 {
+                    record.sleepStage = "deep"
+                    needsSave = true
+                } else if let remSleep = record.remSleep, remSleep > 0 {
+                    record.sleepStage = "rem"
+                    needsSave = true
+                } else if record.source == "healthkit" {
+                    record.sleepStage = "core"
+                    needsSave = true
+                }
+            }
+        }
+
+        if needsSave {
+            try? modelContext.save()
+        }
     }
 
     func addWorkout(_ workout: WorkoutRecord) {

@@ -31,7 +31,7 @@ struct DietDetailView: View {
                                     Image(systemName: mealType.iconName)
                                         .foregroundStyle(.green)
                                     VStack(alignment: .leading) {
-                                        Text(record.timestamp.formatted(date: .abbreviated, time: .shortened))
+                                        Text(record.timestamp.chineseDateTime)
                                         if let items = record.foodItems, !items.isEmpty {
                                             Text(items.map(\.name).joined(separator: "、"))
                                                 .font(.caption)
@@ -77,7 +77,7 @@ struct DietRecordDetail: View {
         List {
             Section("时间") {
                 LabeledContent("餐次", value: MealType(rawValue: record.mealType)?.displayName ?? record.mealType)
-                LabeledContent("记录时间", value: record.timestamp.formatted(date: .abbreviated, time: .shortened))
+                LabeledContent("记录时间", value: record.timestamp.chineseDateTime)
             }
             Section("营养汇总") {
                 LabeledContent("总热量", value: "\(Int(record.totalCalories)) kcal")

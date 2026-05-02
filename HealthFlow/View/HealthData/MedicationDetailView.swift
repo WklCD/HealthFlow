@@ -26,11 +26,11 @@ struct MedicationDetailView: View {
                             }
                             Spacer()
                             VStack(alignment: .trailing) {
-                                Text(med.scheduledTime.formatted(date: .omitted, time: .shortened))
+                                Text(med.scheduledTime.timeOnly)
                                     .font(.caption)
                                     .foregroundStyle(.secondary)
                                 if let takenAt = med.takenAt {
-                                    Text("已服 \(takenAt.formatted(date: .omitted, time: .shortened))")
+                                    Text("已服 \(takenAt.timeOnly)")
                                         .font(.caption2)
                                         .foregroundStyle(.green)
                                 }
@@ -64,7 +64,7 @@ struct MedicationDetailView: View {
                                         .foregroundStyle(.secondary)
                                 }
                                 Spacer()
-                                Text(med.scheduledTime.formatted(date: .abbreviated, time: .shortened))
+                                Text(med.scheduledTime.chineseDateTime)
                                     .font(.caption)
                                     .foregroundStyle(.secondary)
                             }

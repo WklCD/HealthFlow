@@ -8,8 +8,8 @@ struct WorkoutDetailView: View {
         List {
             Section("运动信息") {
                 LabeledContent("类型", value: ExerciseType(rawValue: workout.exerciseType)?.displayName ?? workout.exerciseType)
-                LabeledContent("开始时间", value: workout.startTime.formatted(date: .abbreviated, time: .shortened))
-                LabeledContent("结束时间", value: workout.endTime.formatted(date: .abbreviated, time: .shortened))
+                LabeledContent("开始时间", value: workout.startTime.chineseDateTime)
+                LabeledContent("结束时间", value: workout.endTime.chineseDateTime)
                 LabeledContent("时长", value: formatDuration(workout.duration))
             }
             Section("数据") {

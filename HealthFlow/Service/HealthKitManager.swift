@@ -101,10 +101,19 @@ final class HealthKitManager: HealthKitProtocol {
             record.startTime = sample.startDate
             record.endTime = sample.endDate
             record.duration = sample.endDate.timeIntervalSince(sample.startDate)
-            if sample.value == HKCategoryValueSleepAnalysis.asleepDeep.rawValue {
+            let stageValue = sample.value
+            if stageValue == HKCategoryValueSleepAnalysis.asleepDeep.rawValue {
+                record.sleepStage = "deep"
                 record.deepSleep = record.duration
-            } else if sample.value == HKCategoryValueSleepAnalysis.asleepREM.rawValue {
+            } else if stageValue == HKCategoryValueSleepAnalysis.asleepREM.rawValue {
+                record.sleepStage = "rem"
                 record.remSleep = record.duration
+            } else if stageValue == HKCategoryValueSleepAnalysis.asleepCore.rawValue {
+                record.sleepStage = "core"
+            } else if stageValue == HKCategoryValueSleepAnalysis.awake.rawValue {
+                record.sleepStage = "awake"
+            } else if stageValue == HKCategoryValueSleepAnalysis.inBed.rawValue {
+                record.sleepStage = "inBed"
             }
             record.source = "healthkit"
             record.healthKitUUID = sample.uuid.uuidString
@@ -121,7 +130,20 @@ final class HealthKitManager: HealthKitProtocol {
     }
 
     func fetchBloodOxygen(from start: Date, to end: Date) async throws -> [PhysiologicalMetric] {
-        try await fetchQuantityMetric(.oxygenSaturation, unit: HKUnit.percent(), metricType: "bloodOxygen", from: start, to: end)
+        let samples = try await fetchQuantitySamples(.oxygenSaturation, from: start, to: end)
+        return samples.map { sample in
+            let metric = PhysiologicalMetric()
+            metric.metricType = "bloodOxygen"
+            var value = sample.quantity.doubleValue(for: HKUnit.percent())
+            if value <= 1.0 { value *= 100.0 }
+            metric.value = value
+            metric.unit = "%"
+            metric.timestamp = sample.startDate
+            metric.source = "healthkit"
+            metric.healthKitUUID = sample.uuid.uuidString
+            metric.measurementGroupID = sample.uuid.uuidString
+            return metric
+        }
     }
 
     func fetchBodyTemperature(from start: Date, to end: Date) async throws -> [PhysiologicalMetric] {

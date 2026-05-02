@@ -25,6 +25,20 @@ extension DateFormatter {
         formatter.dateFormat = "HH:mm"
         return formatter
     }()
+
+    static let chineseDateTime: DateFormatter = {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "M月d日 HH:mm"
+        formatter.locale = Locale(identifier: "zh_CN")
+        return formatter
+    }()
+
+    static let chineseDate: DateFormatter = {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy年M月d日"
+        formatter.locale = Locale(identifier: "zh_CN")
+        return formatter
+    }()
 }
 
 extension Calendar {
@@ -35,5 +49,19 @@ extension Calendar {
             return (end, end)
         }
         return (start, end)
+    }
+}
+
+extension Date {
+    var chineseDateTime: String {
+        DateFormatter.chineseDateTime.string(from: self)
+    }
+
+    var chineseDate: String {
+        DateFormatter.chineseDate.string(from: self)
+    }
+
+    var timeOnly: String {
+        DateFormatter.timeOnly.string(from: self)
     }
 }

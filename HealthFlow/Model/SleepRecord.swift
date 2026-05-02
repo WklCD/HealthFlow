@@ -10,10 +10,11 @@ final class SleepRecord {
     var remSleep: TimeInterval?
     var quality: Int = 0
     var source: String = "manual"
+    var sleepStage: String = ""
     @Attribute(.unique) var healthKitUUID: String?
     var note: String?
 
-    init(startTime: Date = Date(), endTime: Date = Date(), duration: TimeInterval = 0, deepSleep: TimeInterval? = nil, remSleep: TimeInterval? = nil, quality: Int = 0, source: String = "manual", healthKitUUID: String? = nil, note: String? = nil) {
+    init(startTime: Date = Date(), endTime: Date = Date(), duration: TimeInterval = 0, deepSleep: TimeInterval? = nil, remSleep: TimeInterval? = nil, quality: Int = 0, source: String = "manual", sleepStage: String = "", healthKitUUID: String? = nil, note: String? = nil) {
         self.startTime = startTime
         self.endTime = endTime
         self.duration = duration
@@ -21,6 +22,7 @@ final class SleepRecord {
         self.remSleep = remSleep
         self.quality = quality
         self.source = source
+        self.sleepStage = sleepStage
         self.healthKitUUID = healthKitUUID
         self.note = note
     }

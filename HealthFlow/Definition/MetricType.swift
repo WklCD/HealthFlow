@@ -1,10 +1,10 @@
-import Foundation
+import SwiftUI
 
 enum MetricType: String, CaseIterable {
-    case weight = "weight"
     case heartRate = "heartRate"
     case bloodOxygen = "bloodOxygen"
     case bodyTemperature = "bodyTemperature"
+    case weight = "weight"
     case bloodPressure = "bloodPressure"
     case bloodGlucose = "bloodGlucose"
 
@@ -32,14 +32,29 @@ enum MetricType: String, CaseIterable {
 
     var requiresDualValues: Bool { self == .bloodPressure }
 
-    var normalRangeDescription: String {
+    static var displayCases: [MetricType] {
+        [.heartRate, .bloodOxygen, .bodyTemperature, .weight]
+    }
+
+    var icon: String {
         switch self {
-        case .weight: return "因人而异"
-        case .heartRate: return "60-100 bpm（静息）"
-        case .bloodOxygen: return "95-100%"
-        case .bodyTemperature: return "36.0-37.3°C"
-        case .bloodPressure: return "90-139 / 60-89 mmHg"
-        case .bloodGlucose: return "3.9-6.1 mmol/L（空腹）"
+        case .weight: return "scalemass.fill"
+        case .heartRate: return "heart.fill"
+        case .bloodOxygen: return "lungs.fill"
+        case .bodyTemperature: return "thermometer.medium"
+        case .bloodPressure: return "heart.text.square.fill"
+        case .bloodGlucose: return "drop.fill"
+        }
+    }
+
+    var strokeColor: Color {
+        switch self {
+        case .heartRate: return .red
+        case .bloodOxygen: return .blue
+        case .bodyTemperature: return .orange
+        case .weight: return .purple
+        case .bloodPressure: return .red
+        case .bloodGlucose: return .mint
         }
     }
 }

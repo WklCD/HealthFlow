@@ -1,24 +1,55 @@
 import SwiftUI
+import Charts
 
 struct MetricDetailView: View {
     let vm: HealthDataViewModel
-    @State private var selectedType: MetricType = .weight
+    @State private var selectedType: MetricType = .heartRate
     @State private var showingAddSheet = false
+    @State private var showAllRecords = false
+
+    private var filteredMetrics: [PhysiologicalMetric] {
+        vm.metrics.filter { $0.metricType == selectedType.rawValue }
+            .sorted { $0.timestamp > $1.timestamp }
+    }
+
+    private var displayMetrics: [PhysiologicalMetric] {
+        if showAllRecords || filteredMetrics.count <= 5 {
+            return filteredMetrics
+        }
+        return Array(filteredMetrics.prefix(5))
+    }
 
     var body: some View {
         List {
             Section {
                 Picker("指标类型", selection: $selectedType) {
-                    ForEach(MetricType.allCases, id: \.self) { type in
+                    ForEach(MetricType.displayCases, id: \.self) { type in
                         Text(type.displayName).tag(type)
                     }
                 }
                 .pickerStyle(.segmented)
             }
 
-            Section("参考范围") {
-                Text(selectedType.normalRangeDescription)
-                    .foregroundStyle(.secondary)
+            if selectedType == .heartRate {
+                NavigationLink {
+                    HeartRateChartView(metrics: vm.metrics.filter { $0.metricType == "heartRate" })
+                } label: {
+                    HStack {
+                        Image(systemName: "heart.fill")
+                            .foregroundStyle(.red)
+                        Text("心率趋势图")
+                    }
+                }
+            } else if selectedType == .bloodOxygen {
+                NavigationLink {
+                    BloodOxygenChartView(metrics: vm.metrics.filter { $0.metricType == "bloodOxygen" })
+                } label: {
+                    HStack {
+                        Image(systemName: "lungs.fill")
+                            .foregroundStyle(.blue)
+                        Text("血氧趋势图")
+                    }
+                }
             }
 
             if filteredMetrics.isEmpty {
@@ -28,18 +59,13 @@ struct MetricDetailView: View {
                 }
             } else {
                 Section("\(selectedType.displayName)记录") {
-                    ForEach(filteredMetrics, id: \.self) { metric in
+                    ForEach(displayMetrics, id: \.self) { metric in
                         HStack {
                             VStack(alignment: .leading) {
-                                Text(metric.timestamp.formatted(date: .abbreviated, time: .shortened))
+                                Text(metric.timestamp.chineseDateTime)
                                     .font(.subheadline)
-                                if selectedType == .bloodPressure, let systolic = metric.valueSystolic, let diastolic = metric.valueDiastolic {
-                                    Text("\(Int(systolic))/\(Int(diastolic)) \(selectedType.unit)")
-                                        .font(.headline)
-                                } else {
-                                    Text(String(format: "%.1f %@", metric.value, selectedType.unit))
-                                        .font(.headline)
-                                }
+                                Text(formatMetricValue(metric))
+                                    .font(.headline)
                             }
                             Spacer()
                             Text(metric.source == "healthkit" ? "HealthKit" : "手动")
@@ -51,6 +77,12 @@ struct MetricDetailView: View {
                         let metrics = filteredMetrics
                         for index in indexSet {
                             vm.deletePhysiologicalMetric(metrics[index])
+                        }
+                    }
+
+                    if !showAllRecords && filteredMetrics.count > 5 {
+                        Button("查看全部 \(filteredMetrics.count) 条记录") {
+                            showAllRecords = true
                         }
                     }
                 }
@@ -67,11 +99,22 @@ struct MetricDetailView: View {
         .sheet(isPresented: $showingAddSheet) {
             AddMetricSheet(vm: vm, selectedType: selectedType)
         }
+        .onChange(of: selectedType) { _, _ in
+            showAllRecords = false
+        }
     }
 
-    private var filteredMetrics: [PhysiologicalMetric] {
-        vm.metrics.filter { $0.metricType == selectedType.rawValue }
-            .sorted { $0.timestamp > $1.timestamp }
+    private func formatMetricValue(_ metric: PhysiologicalMetric) -> String {
+        if metric.metricType == MetricType.bloodPressure.rawValue,
+           let systolic = metric.valueSystolic,
+           let diastolic = metric.valueDiastolic {
+            return "\(Int(systolic))/\(Int(diastolic)) \(selectedType.unit)"
+        }
+        if selectedType == .bloodOxygen {
+            let displayValue = metric.value <= 1.0 ? metric.value * 100 : metric.value
+            return String(format: "%.0f%%", displayValue)
+        }
+        return String(format: "%.1f %@", metric.value, selectedType.unit)
     }
 }
 
@@ -143,7 +186,7 @@ struct AddMetricSheet: View {
         switch selectedType {
         case .weight: return 0.1
         case .heartRate: return 1
-        case .bloodOxygen: return 0.1
+        case .bloodOxygen: return 1
         case .bodyTemperature: return 0.1
         case .bloodGlucose: return 0.1
         case .bloodPressure: return 1

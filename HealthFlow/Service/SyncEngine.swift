@@ -28,6 +28,46 @@ final class SyncEngine {
         try? modelContext.save()
     }
 
+    func upsertSleepRecords(_ records: [SleepRecord]) async {
+        let existing = (try? modelContext.fetch(FetchDescriptor<SleepRecord>())) ?? []
+        let existingByUUID = Dictionary(uniqueKeysWithValues: existing.compactMap { ($0.healthKitUUID, $0) })
+
+        for record in records {
+            guard let uuid = record.healthKitUUID else { continue }
+            if let existingRecord = existingByUUID[uuid] {
+                if existingRecord.sleepStage.isEmpty {
+                    existingRecord.sleepStage = record.sleepStage
+                }
+                if existingRecord.deepSleep == nil, let deepSleep = record.deepSleep {
+                    existingRecord.deepSleep = deepSleep
+                }
+                if existingRecord.remSleep == nil, let remSleep = record.remSleep {
+                    existingRecord.remSleep = remSleep
+                }
+            } else {
+                modelContext.insert(record)
+            }
+        }
+        try? modelContext.save()
+    }
+
+    func upsertPhysiologicalMetrics(_ metrics: [PhysiologicalMetric]) async {
+        let existing = (try? modelContext.fetch(FetchDescriptor<PhysiologicalMetric>())) ?? []
+        let existingByUUID = Dictionary(uniqueKeysWithValues: existing.compactMap { ($0.healthKitUUID, $0) })
+
+        for metric in metrics {
+            guard let uuid = metric.healthKitUUID else { continue }
+            if let existingMetric = existingByUUID[uuid] {
+                if metric.metricType == "bloodOxygen" && existingMetric.value <= 1.0 {
+                    existingMetric.value = metric.value
+                }
+            } else {
+                modelContext.insert(metric)
+            }
+        }
+        try? modelContext.save()
+    }
+
     func syncAll(healthKit: HealthKitProtocol, daysBack: Int = Constants.HealthKit.syncDaysBack) async {
         guard let startDate = Calendar.current.date(byAdding: .day, value: -daysBack, to: Date()) else { return }
         let endDate = Date()
@@ -40,7 +80,7 @@ final class SyncEngine {
             await upsertRecords(workouts, uuidKey: \WorkoutRecord.healthKitUUID)
 
             let sleepRecords = try await healthKit.fetchSleep(from: startDate, to: endDate)
-            await upsertRecords(sleepRecords, uuidKey: \SleepRecord.healthKitUUID)
+            await upsertSleepRecords(sleepRecords)
 
             let weightMetrics = try await healthKit.fetchWeight(from: startDate, to: endDate)
             await upsertRecords(weightMetrics, uuidKey: \PhysiologicalMetric.healthKitUUID)
@@ -49,7 +89,7 @@ final class SyncEngine {
             await upsertRecords(heartRateMetrics, uuidKey: \PhysiologicalMetric.healthKitUUID)
 
             let bloodOxygenMetrics = try await healthKit.fetchBloodOxygen(from: startDate, to: endDate)
-            await upsertRecords(bloodOxygenMetrics, uuidKey: \PhysiologicalMetric.healthKitUUID)
+            await upsertPhysiologicalMetrics(bloodOxygenMetrics)
 
             let bodyTempMetrics = try await healthKit.fetchBodyTemperature(from: startDate, to: endDate)
             await upsertRecords(bodyTempMetrics, uuidKey: \PhysiologicalMetric.healthKitUUID)

@@ -26,10 +26,14 @@ struct MetricTypeTests {
         }
     }
 
-    @Test("所有 normalRangeDescription 非空")
-    func normalRangeDescriptionIsNotEmptyForAllCases() {
-        for type in MetricType.allCases {
-            #expect(!type.normalRangeDescription.isEmpty)
-        }
+    @Test("displayCases 不包含血压和血糖")
+    func displayCasesExcludesBloodPressureAndGlucose() {
+        let displayTypes = MetricType.displayCases
+        #expect(!displayTypes.contains(.bloodPressure))
+        #expect(!displayTypes.contains(.bloodGlucose))
+        #expect(displayTypes.contains(.heartRate))
+        #expect(displayTypes.contains(.bloodOxygen))
+        #expect(displayTypes.contains(.bodyTemperature))
+        #expect(displayTypes.contains(.weight))
     }
 }
