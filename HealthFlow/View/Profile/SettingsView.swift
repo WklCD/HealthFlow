@@ -15,7 +15,7 @@ struct SettingsView: View {
             }
 
             Section("AI 配置") {
-                NavigationLink(destination: EmptyView()) {
+                NavigationLink(destination: APIConfigView()) {
                     Label("API 配置", systemImage: "key.fill")
                 }
             }
