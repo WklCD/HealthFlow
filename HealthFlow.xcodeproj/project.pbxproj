@@ -106,7 +106,7 @@
 /* Begin PBXFileReference section */
 		01BD462166FCF15B320305B6 /* BadgeDefinitionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BadgeDefinitionTests.swift; sourceTree = "<group>"; };
 		04B710DF33D701807A669D9E /* FavoriteFood.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteFood.swift; sourceTree = "<group>"; };
-		04F9D9F9F666A48BC2CA9E26 /* HealthFlow.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HealthFlow.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		04F9D9F9F666A48BC2CA9E26 /* HealthFlow.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = HealthFlow.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		05D6C00F643570CDC8C31089 /* BadgeDefinition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BadgeDefinition.swift; sourceTree = "<group>"; };
 		0F982B0C8452B90299F98E5B /* WorkoutRecordTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutRecordTests.swift; sourceTree = "<group>"; };
 		107FB9A8C1809938DED93319 /* MetricChartViews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetricChartViews.swift; sourceTree = "<group>"; };
@@ -488,6 +488,8 @@
 			attributes = {
 				BuildIndependentTargetsInParallel = YES;
 				LastUpgradeCheck = 1600;
+				TargetAttributes = {
+				};
 			};
 			buildConfigurationList = DD9ABA4E1DC485E42EE887FC /* Build configuration list for PBXProject "HealthFlow" */;
 			developmentRegion = en;
@@ -635,7 +637,6 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = HealthFlow/HealthFlow.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				DEVELOPMENT_TEAM = 62V8XDKU6L;
 				INFOPLIST_FILE = HealthFlow/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = UIInterfaceOrientationPortrait;
@@ -656,7 +657,6 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = HealthFlow/HealthFlow.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				DEVELOPMENT_TEAM = 62V8XDKU6L;
 				INFOPLIST_FILE = HealthFlow/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = UIInterfaceOrientationPortrait;

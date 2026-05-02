@@ -1,6 +1,7 @@
 import Foundation
 
 protocol AIServiceProtocol {
+    var isConfigured: Bool { get }
     func configure(apiKey: String, endpoint: String, modelId: String)
     func sendMessage(prompt: String, context: HealthContext) -> AsyncStream<String>
     func generateQuickPrompt(type: QuickPromptType) -> String

@@ -5,6 +5,7 @@ struct AIAssistantView: View {
     @Environment(\.modelContext) private var modelContext
     @State private var viewModel: AIAssistantViewModel?
     @State private var inputText = ""
+    @FocusState private var isInputFocused: Bool
 
     var body: some View {
         NavigationStack {
@@ -53,12 +54,12 @@ struct AIAssistantView: View {
                     .padding(.top, 80)
                 } else {
                     LazyVStack(spacing: 12) {
-                        ForEach(vm.messages, id: \.timestamp) { message in
+                        ForEach(vm.messages) { message in
                             ChatBubbleView(
                                 message: message,
-                                isStreaming: vm.isStreaming && message == vm.messages.last && message.role == "assistant"
+                                isStreaming: vm.isStreaming && message.id == vm.messages.last?.id && message.role == "assistant"
                             )
-                            .id(message.timestamp)
+                            .id(message.id)
                         }
                     }
                     .padding()
@@ -66,12 +67,12 @@ struct AIAssistantView: View {
             }
             .onChange(of: vm.messages.count) { _, _ in
                 if let last = vm.messages.last {
-                    withAnimation { proxy.scrollTo(last.timestamp, anchor: .bottom) }
+                    withAnimation { proxy.scrollTo(last.id, anchor: .bottom) }
                 }
             }
             .onChange(of: vm.isStreaming) { _, isStreaming in
                 if !isStreaming, let last = vm.messages.last {
-                    withAnimation { proxy.scrollTo(last.timestamp, anchor: .bottom) }
+                    withAnimation { proxy.scrollTo(last.id, anchor: .bottom) }
                 }
             }
         }
@@ -89,11 +90,13 @@ struct AIAssistantView: View {
                 TextField("输入健康问题...", text: $inputText, axis: .vertical)
                     .textFieldStyle(.roundedBorder)
                     .lineLimit(1...4)
+                    .focused($isInputFocused)
 
                 Button {
                     let text = inputText.trimmingCharacters(in: .whitespacesAndNewlines)
                     guard !text.isEmpty else { return }
                     inputText = ""
+                    isInputFocused = false
                     Task { await vm.sendMessage(text) }
                 } label: {
                     Image(systemName: "arrow.up.circle.fill")

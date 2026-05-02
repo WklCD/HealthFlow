@@ -7,12 +7,14 @@ import SwiftData
 final class AIAssistantViewModel {
     var messages: [ChatMessage] = []
     var isStreaming = false
+    var isConfigured = false
     private let modelContext: ModelContext
     private let aiService: AIServiceProtocol
 
     init(modelContext: ModelContext, aiService: AIServiceProtocol) {
         self.modelContext = modelContext
         self.aiService = aiService
+        self.isConfigured = aiService.isConfigured
         loadMessages()
     }
 
@@ -27,8 +29,21 @@ final class AIAssistantViewModel {
         try? modelContext.save()
         loadMessages()
 
+        guard isConfigured else {
+            let systemMsg = ChatMessage(role: "assistant", content: "请先在设置中配置 API（Endpoint、模型 ID 和 API Key），才能使用 AI 助手功能。")
+            modelContext.insert(systemMsg)
+            try? modelContext.save()
+            loadMessages()
+            return
+        }
+
         let context = buildHealthContext()
         isStreaming = true
+        defer {
+            isStreaming = false
+            try? modelContext.save()
+            loadMessages()
+        }
 
         let assistantMsg = ChatMessage(role: "assistant", content: "")
         modelContext.insert(assistantMsg)
@@ -37,13 +52,11 @@ final class AIAssistantViewModel {
         for await chunk in aiService.sendMessage(prompt: text, context: context) {
             fullContent += chunk
             assistantMsg.content = fullContent
-            loadMessages()
         }
 
-        assistantMsg.content = fullContent
-        try? modelContext.save()
-        isStreaming = false
-        loadMessages()
+        assistantMsg.content = fullContent.isEmpty
+            ? "AI 服务暂时无法响应，请检查网络连接和 API 配置。"
+            : fullContent
     }
 
     func sendQuickPrompt(_ type: QuickPromptType) async {
