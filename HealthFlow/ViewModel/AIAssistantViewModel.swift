@@ -86,7 +86,11 @@ final class AIAssistantViewModel {
 
         let sleeps = (try? modelContext.fetch(FetchDescriptor<SleepRecord>())) ?? []
         let recentSleeps = sleeps.filter { $0.endTime >= sevenDaysAgo }
-        let avgSleepHours = recentSleeps.isEmpty ? 0 : recentSleeps.reduce(0.0) { $0 + $1.duration } / Double(recentSleeps.count) / 3600.0
+        let groupedByDay = Dictionary(grouping: recentSleeps) { calendar.startOfDay(for: $0.endTime) }
+        let dailySleepHours = groupedByDay.values.map { dayRecords in
+            dayRecords.reduce(0.0) { $0 + $1.duration } / 3600.0
+        }
+        let avgSleepHours = dailySleepHours.isEmpty ? 0 : dailySleepHours.reduce(0, +) / Double(dailySleepHours.count)
         let avgSleepQuality = recentSleeps.isEmpty ? 0 : Double(recentSleeps.reduce(0) { $0 + $1.quality }) / Double(recentSleeps.count)
 
         let diets = (try? modelContext.fetch(FetchDescriptor<DietRecord>())) ?? []

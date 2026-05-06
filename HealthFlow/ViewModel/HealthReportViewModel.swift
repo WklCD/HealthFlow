@@ -47,7 +47,11 @@ final class HealthReportViewModel {
 
         let avgSteps = activities.isEmpty ? 0 : activities.reduce(0) { $0 + $1.steps } / activities.count
         let totalWorkouts = workouts.count
-        let avgSleepHours = sleeps.isEmpty ? 0 : sleeps.reduce(0.0) { $0 + $1.duration / 3600 } / Double(sleeps.count)
+        let groupedByDay = Dictionary(grouping: sleeps) { calendar.startOfDay(for: $0.endTime) }
+        let dailySleepHours = groupedByDay.values.map { dayRecords in
+            dayRecords.reduce(0.0) { $0 + $1.duration } / 3600.0
+        }
+        let avgSleepHours = dailySleepHours.isEmpty ? 0 : dailySleepHours.reduce(0, +) / Double(dailySleepHours.count)
         let avgSleepQuality = sleeps.isEmpty ? 0 : Double(sleeps.reduce(0) { $0 + $1.quality }) / Double(sleeps.count)
         let avgCalories = diets.isEmpty ? 0 : diets.reduce(0.0) { $0 + $1.totalCalories } / Double(diets.count)
 

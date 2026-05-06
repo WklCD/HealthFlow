@@ -33,10 +33,13 @@ enum HealthCalculator {
     }
 
     static func checkSleepDeficit(sleeps: [SleepRecord], threshold: Double) -> Bool {
-        let sorted = sleeps.sorted { $0.endTime < $1.endTime }
+        let calendar = Calendar.current
+        let groupedByDay = Dictionary(grouping: sleeps) { calendar.startOfDay(for: $0.endTime) }
+        let dailyHours = groupedByDay.values
+            .map { $0.reduce(0.0) { $0 + $1.duration } / 3600.0 }
+            .sorted()
         var consecutiveCount = 0
-        for sleep in sorted {
-            let hours = sleep.duration / 3600
+        for hours in dailyHours {
             if hours < threshold { consecutiveCount += 1 }
             else { consecutiveCount = 0 }
             if consecutiveCount >= 3 { return true }
