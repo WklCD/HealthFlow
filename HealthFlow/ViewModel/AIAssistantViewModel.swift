@@ -52,6 +52,10 @@ final class AIAssistantViewModel {
         for await chunk in aiService.sendMessage(prompt: text, context: context) {
             fullContent += chunk
             assistantMsg.content = fullContent
+            try? modelContext.save()
+            let lastMsg = assistantMsg
+            messages = messages.map { $0.id == lastMsg.id ? lastMsg : $0 }
+            await Task.yield()
         }
 
         assistantMsg.content = fullContent.isEmpty

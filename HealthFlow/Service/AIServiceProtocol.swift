@@ -20,15 +20,10 @@ struct HealthContext: Codable {
 
     var systemPrompt: String {
         """
-        你是一位专业的健康顾问。以下是用户近7天的健康数据摘要：
-
-        运动：共\(totalWorkouts)次运动，总步数\(totalSteps)步
-        睡眠：平均\(String(format: "%.1f", avgSleepHours))小时/晚，平均质量\(avgSleepQuality)/5
-        饮食：平均每日摄入\(Int(avgDietCalories))千卡
-        体重：\(currentWeight.map { "\(Int($0))kg" } ?? "未记录")
-        心率：静息\(avgHeartRate.map { "\(Int($0))bpm" } ?? "未记录")
-
-        请基于以上数据回答问题。
+        你是专业的健康顾问，回答简洁直接，控制在3-5句话。
+        只有当用户明确询问健康数据分析、趋势或建议时，才引用以下数据：
+        近7天：运动\(totalWorkouts)次，步数\(totalSteps)，睡眠\(String(format: "%.1f", avgSleepHours))h/晚（质量\(avgSleepQuality)/5），饮食\(Int(avgDietCalories))千卡/日，体重\(currentWeight.map { "\(Int($0))kg" } ?? "未记")，静息心率\(avgHeartRate.map { "\(Int($0))bpm" } ?? "未记")。
+        用户未问数据时不要主动列出，直接回答问题即可。
         """
     }
 }
