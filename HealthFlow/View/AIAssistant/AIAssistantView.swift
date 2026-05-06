@@ -4,17 +4,18 @@ import SwiftData
 struct AIAssistantView: View {
     @Environment(\.modelContext) private var modelContext
     @State private var viewModel: AIAssistantViewModel?
-    @State private var inputText = ""
-    @FocusState private var isInputFocused: Bool
 
     var body: some View {
         NavigationStack {
             VStack(spacing: 0) {
                 if let vm = viewModel {
-                    messageListView(vm: vm)
-                    inputBar(vm: vm)
+                    MessageListView(vm: vm)
+                    InputBarView(vm: vm)
                 } else {
-                    loadingView
+                    ProgressView()
+                        .padding()
+                    Text("加载中...")
+                        .foregroundStyle(.secondary)
                 }
             }
             .navigationTitle("AI 助手")
@@ -35,8 +36,16 @@ struct AIAssistantView: View {
             viewModel = vm
         }
     }
+}
 
-    private func messageListView(vm: AIAssistantViewModel) -> some View {
+struct MessageListView: View {
+    let vm: AIAssistantViewModel
+
+    private var bubbleData: [ChatBubbleData] {
+        vm.messages.map { ChatBubbleData(id: $0.id, role: $0.role, content: $0.content) }
+    }
+
+    var body: some View {
         ScrollViewReader { proxy in
             ScrollView {
                 if vm.messages.isEmpty {
@@ -54,31 +63,38 @@ struct AIAssistantView: View {
                     .padding(.top, 80)
                 } else {
                     LazyVStack(spacing: 12) {
-                        ForEach(vm.messages) { message in
+                        ForEach(bubbleData) { data in
                             ChatBubbleView(
-                                message: message,
-                                isStreaming: vm.isStreaming && message.id == vm.messages.last?.id && message.role == "assistant"
+                                data: data,
+                                isStreaming: vm.isStreaming && data.id == bubbleData.last?.id && data.role == "assistant"
                             )
-                            .id(message.id)
+                            .id(data.id)
                         }
                     }
                     .padding()
                 }
             }
-            .onChange(of: vm.messages.count) { _, _ in
-                if let last = vm.messages.last {
+            .onChange(of: bubbleData.count) { _, _ in
+                if let last = bubbleData.last {
                     withAnimation { proxy.scrollTo(last.id, anchor: .bottom) }
                 }
             }
             .onChange(of: vm.isStreaming) { _, isStreaming in
-                if !isStreaming, let last = vm.messages.last {
+                if !isStreaming, let last = bubbleData.last {
                     withAnimation { proxy.scrollTo(last.id, anchor: .bottom) }
                 }
             }
         }
     }
+}
 
-    private func inputBar(vm: AIAssistantViewModel) -> some View {
+struct InputBarView: View {
+    let vm: AIAssistantViewModel
+    @State private var inputText = ""
+    @State private var showClearConfirm = false
+    @FocusState private var isInputFocused: Bool
+
+    var body: some View {
         VStack(spacing: 8) {
             if !vm.messages.isEmpty {
                 QuickPromptView { type in
@@ -105,12 +121,10 @@ struct AIAssistantView: View {
                 }
                 .disabled(vm.isStreaming)
 
-                Menu {
-                    Button("清除对话", role: .destructive) {
-                        vm.clearConversation()
-                    }
+                Button {
+                    showClearConfirm = true
                 } label: {
-                    Image(systemName: "ellipsis.circle")
+                    Image(systemName: "trash")
                         .foregroundStyle(.secondary)
                 }
             }
@@ -118,14 +132,13 @@ struct AIAssistantView: View {
             .padding(.vertical, 8)
         }
         .background(.bar)
-    }
-
-    private var loadingView: some View {
-        VStack {
-            ProgressView()
-                .padding()
-            Text("加载中...")
-                .foregroundStyle(.secondary)
+        .confirmationDialog("清除对话", isPresented: $showClearConfirm) {
+            Button("清除所有对话记录", role: .destructive) {
+                vm.clearConversation()
+            }
+            Button("取消", role: .cancel) {}
+        } message: {
+            Text("确定要清除所有对话记录吗？此操作不可撤销。")
         }
     }
 }

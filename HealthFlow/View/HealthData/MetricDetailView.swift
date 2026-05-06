@@ -50,6 +50,26 @@ struct MetricDetailView: View {
                         Text("血氧趋势图")
                     }
                 }
+            } else if selectedType == .bodyTemperature {
+                NavigationLink {
+                    BodyTemperatureChartView(metrics: vm.metrics.filter { $0.metricType == "bodyTemperature" })
+                } label: {
+                    HStack {
+                        Image(systemName: "thermometer.medium")
+                            .foregroundStyle(.orange)
+                        Text("体温趋势图")
+                    }
+                }
+            } else if selectedType == .weight {
+                NavigationLink {
+                    WeightChartView(metrics: vm.metrics.filter { $0.metricType == "weight" })
+                } label: {
+                    HStack {
+                        Image(systemName: "scalemass.fill")
+                            .foregroundStyle(.purple)
+                        Text("体重趋势图")
+                    }
+                }
             }
 
             if filteredMetrics.isEmpty {

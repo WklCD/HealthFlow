@@ -7,6 +7,15 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		D1E2F3A4B5C6000111223344 /* PrivacyLockViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B2C3D4E5F60001A1B2C3D4 /* PrivacyLockViewModel.swift */; };
+		D2E3F4A5B6C7000211223355 /* PrivacyLockView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2B3C4D5E6F70002A2B3C4D5 /* PrivacyLockView.swift */; };
+		D3E4F5A6B7C8000311223366 /* CSVEncoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3B4C5D6E7F80003A3B4C5D6 /* CSVEncoder.swift */; };
+		D4E5F6A7B8C9000411223377 /* ExportService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4B5C6D7E8F90004A4B5C6D7 /* ExportService.swift */; };
+		D5E6F7A8B9CA000511223388 /* ExportView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5B6C7D8E9FA0005A5B6C7D8 /* ExportView.swift */; };
+		D6E7F8A9B0CB000611223399 /* AchievementView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6B7C8D9E0FB0006A6B7C8D9 /* AchievementView.swift */; };
+		D7E8F9A0B1DC000711223300 /* AlertHistoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7B8C9D0E1FC0007A7B8C9D0 /* AlertHistoryView.swift */; };
+		B8C9D0E1F2AD0008B8C9D0E1 /* PrivacyLockViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8B9C0D1E2FD0008A8B9C0D1 /* PrivacyLockViewModelTests.swift */; };
+		B9D0E1F2F3AE0009B9D0E1F2 /* ExportServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9C0D1E2F3FE0009A9C0D1E2 /* ExportServiceTests.swift */; };
 		02F44568E36B8E3F13612967 /* DailyActivitySummaryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E94C10CA17106EADBF2B837 /* DailyActivitySummaryTests.swift */; };
 		0522CD46DB174AC3AF223220 /* MedicationRecord.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA0165D621B9497FAE4FF96A /* MedicationRecord.swift */; };
 		072BE202EDDBCAD9A30C6F13 /* MockHealthKitManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7B542904807F5B0F28F08CF /* MockHealthKitManager.swift */; };
@@ -104,9 +113,18 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		A1B2C3D4E5F60001A1B2C3D4 /* PrivacyLockViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrivacyLockViewModel.swift; sourceTree = "<group>"; };
+		A2B3C4D5E6F70002A2B3C4D5 /* PrivacyLockView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrivacyLockView.swift; sourceTree = "<group>"; };
+		A3B4C5D6E7F80003A3B4C5D6 /* CSVEncoder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CSVEncoder.swift; sourceTree = "<group>"; };
+		A4B5C6D7E8F90004A4B5C6D7 /* ExportService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExportService.swift; sourceTree = "<group>"; };
+		A5B6C7D8E9FA0005A5B6C7D8 /* ExportView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExportView.swift; sourceTree = "<group>"; };
+		A6B7C8D9E0FB0006A6B7C8D9 /* AchievementView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AchievementView.swift; sourceTree = "<group>"; };
+		A7B8C9D0E1FC0007A7B8C9D0 /* AlertHistoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertHistoryView.swift; sourceTree = "<group>"; };
+		A8B9C0D1E2FD0008A8B9C0D1 /* PrivacyLockViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrivacyLockViewModelTests.swift; sourceTree = "<group>"; };
+		A9C0D1E2F3FE0009A9C0D1E2 /* ExportServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExportServiceTests.swift; sourceTree = "<group>"; };
 		01BD462166FCF15B320305B6 /* BadgeDefinitionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BadgeDefinitionTests.swift; sourceTree = "<group>"; };
 		04B710DF33D701807A669D9E /* FavoriteFood.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteFood.swift; sourceTree = "<group>"; };
-		04F9D9F9F666A48BC2CA9E26 /* HealthFlow.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = HealthFlow.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		04F9D9F9F666A48BC2CA9E26 /* HealthFlow.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HealthFlow.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		05D6C00F643570CDC8C31089 /* BadgeDefinition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BadgeDefinition.swift; sourceTree = "<group>"; };
 		0F982B0C8452B90299F98E5B /* WorkoutRecordTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutRecordTests.swift; sourceTree = "<group>"; };
 		107FB9A8C1809938DED93319 /* MetricChartViews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetricChartViews.swift; sourceTree = "<group>"; };
@@ -241,6 +259,7 @@
 			children = (
 				60B897012589B38F979365BD /* AIServiceTests.swift */,
 				E22FF644A4454ACE04BF62D6 /* FoodDatabaseServiceTests.swift */,
+				A9C0D1E2F3FE0009A9C0D1E2 /* ExportServiceTests.swift */,
 				8C0B0AD39974EFC446E9F40D /* HealthCalculatorTests.swift */,
 				45D3B147704BADE8BECDD83C /* ImageStorageServiceTests.swift */,
 				723F828C660E88A33805A0A9 /* KeychainServiceTests.swift */,
@@ -302,6 +321,7 @@
 			children = (
 				AA9D11167D0F09DDAA2F7B11 /* AIService.swift */,
 				C189341E78F0CBA5DF279EFD /* AIServiceProtocol.swift */,
+				A4B5C6D7E8F90004A4B5C6D7 /* ExportService.swift */,
 				FD1ED5C8A4E7E082CDE69A85 /* FoodDatabaseService.swift */,
 				7579F1AE6701B2B1E5A71410 /* HealthKitManager.swift */,
 				CAEA40F236132AF02704CED9 /* HealthKitProtocol.swift */,
@@ -320,9 +340,18 @@
 				3B63A1AB60694383C5A29850 /* Dashboard */,
 				03D71E78C1410182D883CA71 /* HealthData */,
 				AE9B07F359D7A423ABA09DA4 /* Profile */,
+				C0D1E2F3A4B50010C0D1E2F3 /* Privacy */,
 				212C7790E290D4008406728F /* MainTabView.swift */,
 			);
 			path = View;
+			sourceTree = "<group>";
+		};
+		C0D1E2F3A4B50010C0D1E2F3 /* Privacy */ = {
+			isa = PBXGroup;
+			children = (
+				A2B3C4D5E6F70002A2B3C4D5 /* PrivacyLockView.swift */,
+			);
+			path = Privacy;
 			sourceTree = "<group>";
 		};
 		5ED72D20ED9DBC78F48B51DB /* DefinitionTests */ = {
@@ -338,6 +367,7 @@
 		6032498D1C3FBB36CF3A92DD /* Utility */ = {
 			isa = PBXGroup;
 			children = (
+				A3B4C5D6E7F80003A3B4C5D6 /* CSVEncoder.swift */,
 				16357B7A7A1ABF1603A126C0 /* Constants.swift */,
 				9460DF9B942EB9FD6EB2126A /* DateFormatter+Extensions.swift */,
 				11ABA9AD03E93093530B6820 /* HealthCalculator.swift */,
@@ -364,6 +394,7 @@
 				36B21F04630934774DA9F6AD /* DashboardViewModel.swift */,
 				441E8DBC3EA66FF732AD5963 /* HealthDataViewModel.swift */,
 				B5CEA298FEBD22C047393717 /* HealthReportViewModel.swift */,
+				A1B2C3D4E5F60001A1B2C3D4 /* PrivacyLockViewModel.swift */,
 				F7E1A3AF8E1E511A2BFC7321 /* ProfileViewModel.swift */,
 			);
 			path = ViewModel;
@@ -405,6 +436,7 @@
 				8103EA5878D21B7E060BB83C /* AIAssistantViewModelTests.swift */,
 				424D7708CA5136932FD0CD03 /* DashboardViewModelTests.swift */,
 				23573A3D7DFD7A70C1994617 /* HealthDataViewModelTests.swift */,
+				A8B9C0D1E2FD0008A8B9C0D1 /* PrivacyLockViewModelTests.swift */,
 				78ED103E8EB9ECEA7E316626 /* ProfileViewModelTests.swift */,
 			);
 			path = ViewModelTests;
@@ -413,7 +445,10 @@
 		AE9B07F359D7A423ABA09DA4 /* Profile */ = {
 			isa = PBXGroup;
 			children = (
+				A6B7C8D9E0FB0006A6B7C8D9 /* AchievementView.swift */,
+				A7B8C9D0E1FC0007A7B8C9D0 /* AlertHistoryView.swift */,
 				35188CFED94A8449CACB3833 /* APIConfigView.swift */,
+				A5B6C7D8E9FA0005A5B6C7D8 /* ExportView.swift */,
 				9538873816FEABE8A4523492 /* HealthReportView.swift */,
 				80E806E89150650CC183C953 /* PersonalInfoView.swift */,
 				138C4F49D86D9DE7DA8A6D47 /* ProfileView.swift */,
@@ -488,8 +523,6 @@
 			attributes = {
 				BuildIndependentTargetsInParallel = YES;
 				LastUpgradeCheck = 1600;
-				TargetAttributes = {
-				};
 			};
 			buildConfigurationList = DD9ABA4E1DC485E42EE887FC /* Build configuration list for PBXProject "HealthFlow" */;
 			developmentRegion = en;
@@ -536,6 +569,7 @@
 				02F44568E36B8E3F13612967 /* DailyActivitySummaryTests.swift in Sources */,
 				A71073364544E31D1B1C01F6 /* DashboardViewModelTests.swift in Sources */,
 				34C58C909778D1EB3FACE583 /* DietRecordTests.swift in Sources */,
+				B9D0E1F2F3AE0009B9D0E1F2 /* ExportServiceTests.swift in Sources */,
 				68E94457663375D7BD3BFA09 /* ExerciseTypeTests.swift in Sources */,
 				224644C918123010CB96FDAD /* FoodDatabaseServiceTests.swift in Sources */,
 				2CCC2D313BDDEE2FFDB2D6A7 /* FoodItemTests.swift in Sources */,
@@ -548,6 +582,7 @@
 				7A4D0B6801D70CB5884EC00E /* MockAIService.swift in Sources */,
 				072BE202EDDBCAD9A30C6F13 /* MockHealthKitManager.swift in Sources */,
 				B607D81F5AE9A7B28F03B75E /* PhysiologicalMetricTests.swift in Sources */,
+				B8C9D0E1F2AD0008B8C9D0E1 /* PrivacyLockViewModelTests.swift in Sources */,
 				65903F28B9B18CC429D6D89E /* ProfileViewModelTests.swift in Sources */,
 				CB51C20ED5A291EBBB57991E /* SleepRecordTests.swift in Sources */,
 				E25DDBE44E2FE75139546935 /* SyncEngineTests.swift in Sources */,
@@ -560,6 +595,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D6E7F8A9B0CB000611223399 /* AchievementView.swift in Sources */,
 				B58172AF1034EDA26F22F44D /* AIAssistantView.swift in Sources */,
 				307125EB0D4A7F035FE52145 /* AIAssistantViewModel.swift in Sources */,
 				6ED0B5BB1642EF14191A1985 /* AIService.swift in Sources */,
@@ -567,8 +603,10 @@
 				F2BC06D5763C5DF479D49F03 /* APIConfigView.swift in Sources */,
 				3840D6802FD92B7E94FD126B /* AchievementBadge.swift in Sources */,
 				1F7298B10ADE4D74BDCDAF27 /* AchievementViewModel.swift in Sources */,
+				D7E8F9A0B1DC000711223300 /* AlertHistoryView.swift in Sources */,
 				C409330B7D9932E202C9C7BF /* ActivityDetailView.swift in Sources */,
 				7376AF8C2C464FFECFB16C11 /* BadgeDefinition.swift in Sources */,
+				D3E4F5A6B7C8000311223366 /* CSVEncoder.swift in Sources */,
 				7D191436C5880E9C27088752 /* ChatBubbleView.swift in Sources */,
 				F2676C44FB5EE43AAF51E5D0 /* ChatMessage.swift in Sources */,
 				4545CCF2B5325673B91A8363 /* Constants.swift in Sources */,
@@ -579,6 +617,8 @@
 				B3A0D8DBE540201EFE716FB2 /* DietDetailView.swift in Sources */,
 				4C0C2F2F0E1B59F2D24987D8 /* DietRecord.swift in Sources */,
 				35733C276CD2485F1E4DD490 /* EmptyStateView.swift in Sources */,
+				D4E5F6A7B8C9000411223377 /* ExportService.swift in Sources */,
+				D5E6F7A8B9CA000511223388 /* ExportView.swift in Sources */,
 				B902E65E126526515192C3C5 /* ExerciseType.swift in Sources */,
 				A13C8B7433EE36F289A48E19 /* FavoriteFood.swift in Sources */,
 				3AA4E30EF301AEC4D7FF8C69 /* FoodDatabaseService.swift in Sources */,
@@ -604,6 +644,8 @@
 				0BE9ED1D84514B5C55BC6540 /* MetricType.swift in Sources */,
 				C482E67E57E4459DE91AED32 /* PersonalInfoView.swift in Sources */,
 				A948BF27867D29BA35FF1A6B /* PhysiologicalMetric.swift in Sources */,
+				D1E2F3A4B5C6000111223344 /* PrivacyLockViewModel.swift in Sources */,
+				D2E3F4A5B6C7000211223355 /* PrivacyLockView.swift in Sources */,
 				E5035E0D765DD5A35603E392 /* ProfileView.swift in Sources */,
 				8B5992E662C6ABEEC6DE16C6 /* ProfileViewModel.swift in Sources */,
 				E62F6A9DE588A7B64E1EEFBB /* QuickPromptType.swift in Sources */,
@@ -637,6 +679,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = HealthFlow/HealthFlow.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				DEVELOPMENT_TEAM = 62V8XDKU6L;
 				INFOPLIST_FILE = HealthFlow/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = UIInterfaceOrientationPortrait;
@@ -657,6 +700,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = HealthFlow/HealthFlow.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				DEVELOPMENT_TEAM = 62V8XDKU6L;
 				INFOPLIST_FILE = HealthFlow/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = UIInterfaceOrientationPortrait;

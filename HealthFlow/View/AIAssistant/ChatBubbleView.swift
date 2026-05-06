@@ -1,23 +1,30 @@
 import SwiftUI
+import SwiftData
+
+struct ChatBubbleData: Identifiable, Equatable {
+    let id: PersistentIdentifier
+    let role: String
+    let content: String
+}
 
 struct ChatBubbleView: View {
-    let message: ChatMessage
+    let data: ChatBubbleData
     let isStreaming: Bool
 
     var body: some View {
         HStack(alignment: .top) {
-            if message.role == "assistant" {
+            if data.role == "assistant" {
                 Image(systemName: "brain.head.profile")
                     .foregroundStyle(.purple)
                     .font(.title3)
             }
 
             VStack(alignment: .leading, spacing: 4) {
-                Text(message.role == "user" ? "你" : "AI 助手")
+                Text(data.role == "user" ? "你" : "AI 助手")
                     .font(.caption.bold())
                     .foregroundStyle(.secondary)
                 HStack(spacing: 0) {
-                    Text(message.content)
+                    Text(data.content)
                         .font(.body)
                     if isStreaming {
                         BlinkingCursor()
@@ -25,11 +32,11 @@ struct ChatBubbleView: View {
                 }
             }
             .padding(12)
-            .background(message.role == "user" ? Color.blue.opacity(0.1) : Color.purple.opacity(0.1))
+            .background(data.role == "user" ? Color.blue.opacity(0.1) : Color.purple.opacity(0.1))
             .clipShape(RoundedRectangle(cornerRadius: 12))
-            .frame(maxWidth: 280, alignment: message.role == "user" ? .trailing : .leading)
+            .frame(maxWidth: 280, alignment: data.role == "user" ? .trailing : .leading)
 
-            if message.role == "user" {
+            if data.role == "user" {
                 Image(systemName: "person.circle.fill")
                     .foregroundStyle(.blue)
                     .font(.title3)

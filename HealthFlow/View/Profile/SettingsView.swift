@@ -2,6 +2,7 @@ import SwiftUI
 
 struct SettingsView: View {
     @AppStorage("isDarkMode") private var darkModeSelection: String = "system"
+    @AppStorage("privacy_lock_enabled") private var privacyLockEnabled: Bool = false
 
     var body: some View {
         Form {
@@ -9,8 +10,7 @@ struct SettingsView: View {
                 HStack {
                     Label("隐私锁", systemImage: "lock.fill")
                     Spacer()
-                    Toggle("", isOn: .constant(false))
-                        .disabled(true)
+                    Toggle("", isOn: $privacyLockEnabled)
                 }
             }
 

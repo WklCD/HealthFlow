@@ -22,11 +22,14 @@ struct ProfileView: View {
                     NavigationLink(destination: HealthReportView()) {
                         Label("健康报告", systemImage: "doc.text.fill")
                     }
-                    NavigationLink(destination: EmptyView()) {
+                    NavigationLink(destination: ExportView()) {
                         Label("数据导出", systemImage: "square.and.arrow.up.fill")
                     }
-                    NavigationLink(destination: EmptyView()) {
+                    NavigationLink(destination: AchievementView()) {
                         Label("成就徽章", systemImage: "medal.fill")
+                    }
+                    NavigationLink(destination: AlertHistoryView()) {
+                        Label("预警管理", systemImage: "bell.badge.fill")
                     }
                 }
 

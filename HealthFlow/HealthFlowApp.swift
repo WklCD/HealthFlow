@@ -31,12 +31,33 @@ struct HealthFlowApp: App {
 
     var body: some Scene {
         WindowGroup {
-            MainTabView()
-                .task {
-                    await ensureUserProfileExists()
-                }
+            ContentView(container: container)
         }
         .modelContainer(container)
+    }
+}
+
+struct ContentView: View {
+    let container: ModelContainer
+    @Environment(\.scenePhase) private var scenePhase
+    @State private var lockVM = PrivacyLockViewModel()
+
+    var body: some View {
+        ZStack {
+            MainTabView()
+            if lockVM.showLock && lockVM.needsAuthentication {
+                PrivacyLockView(viewModel: lockVM)
+                    .transition(.opacity)
+            }
+        }
+        .onChange(of: scenePhase) { _, newPhase in
+            if newPhase == .background || newPhase == .inactive {
+                if lockVM.needsAuthentication { lockVM.lock() }
+            }
+        }
+        .task {
+            await ensureUserProfileExists()
+        }
     }
 
     @MainActor
